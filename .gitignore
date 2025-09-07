@@ -1,0 +1,29 @@
+﻿# Node/React
+node_modules/
+dist/
+build/
+.cache/
+*.log
+
+# Java/Gradle
+*.class
+*.jar
+*.war
+*.ear
+.gradle/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env & credentials
+.env
+*.env
+*.pem
+*.key
