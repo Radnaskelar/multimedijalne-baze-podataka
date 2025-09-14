@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Heading, Input, Button, Flex, Image, useToast } from '@chakra-ui/react';
 import { FaTrash, FaDownload, FaPlus, FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ const ImageGallery = () => {
   const [images, setImages] = useState([]);
   const toast = useToast();
 
-  const getAllImages = async () => {
+  const getAllImages = useCallback(async () => {
     try {
       if (!searchQuery) {
         const response = await fetch('http://localhost:8080/images');
@@ -19,11 +19,11 @@ const ImageGallery = () => {
     } catch (error) {
       console.error('Error fetching images:', error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getAllImages();
-  }, []);
+  }, [getAllImages]);
 
 
   const handleSearch = async () => {
