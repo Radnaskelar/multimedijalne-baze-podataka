@@ -1,4 +1,4 @@
-package com.somika.imagefileservice.domain;
+package com.ar.imagefileservice.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

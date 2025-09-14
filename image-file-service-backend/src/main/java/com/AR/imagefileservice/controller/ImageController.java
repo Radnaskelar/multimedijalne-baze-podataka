@@ -1,7 +1,7 @@
-package com.somika.imagefileservice.controller;
+package com.ar.imagefileservice.controller;
 
-import com.somika.imagefileservice.dto.ImageDto;
-import com.somika.imagefileservice.service.impl.ImageServiceImpl;
+import com.ar.imagefileservice.dto.ImageDto;
+import com.ar.imagefileservice.service.impl.ImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -52,3 +52,4 @@ public class ImageController {
                 .body(imageData);
     }
 }
+

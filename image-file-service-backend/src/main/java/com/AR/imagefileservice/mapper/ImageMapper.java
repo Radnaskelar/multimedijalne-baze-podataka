@@ -1,7 +1,7 @@
-package com.somika.imagefileservice.mapper;
+package com.ar.imagefileservice.mapper;
 
-import com.somika.imagefileservice.domain.Image;
-import com.somika.imagefileservice.dto.ImageDto;
+import com.ar.imagefileservice.domain.Image;
+import com.ar.imagefileservice.dto.ImageDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -18,4 +18,5 @@ public interface ImageMapper {
                 .collect(Collectors.toList());
     }
 }
+
 

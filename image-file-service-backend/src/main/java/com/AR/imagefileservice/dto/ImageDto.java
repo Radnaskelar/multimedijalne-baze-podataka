@@ -1,4 +1,4 @@
-package com.somika.imagefileservice.dto;
+package com.ar.imagefileservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,3 +13,4 @@ public class ImageDto {
     private String imageUrl;
     private String hexValue;
 }
+

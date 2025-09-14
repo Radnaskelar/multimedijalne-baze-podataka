@@ -1,6 +1,6 @@
-package com.somika.imagefileservice.service;
+package com.ar.imagefileservice.service;
 
-import com.somika.imagefileservice.dto.ImageDto;
+import com.ar.imagefileservice.dto.ImageDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -19,3 +19,4 @@ public interface ImageService {
     byte[] getImageDataById(Long imageId);
 
 }
+

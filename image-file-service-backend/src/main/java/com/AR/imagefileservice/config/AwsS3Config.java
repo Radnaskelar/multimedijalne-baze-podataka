@@ -1,4 +1,4 @@
-package com.somika.imagefileservice.config;
+package com.ar.imagefileservice.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -37,4 +37,5 @@ public class AwsS3Config {
         private String bucketName;
     }
 }
+
 

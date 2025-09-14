@@ -1,4 +1,4 @@
-package com.somika.imagefileservice.util;
+package com.ar.imagefileservice.util;
 
 import org.springframework.stereotype.Service;
 
@@ -80,3 +80,4 @@ public class DominantColorExtractor {
     }
 
 }
+

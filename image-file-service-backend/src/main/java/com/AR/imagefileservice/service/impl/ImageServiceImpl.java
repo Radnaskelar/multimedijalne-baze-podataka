@@ -1,14 +1,14 @@
-package com.somika.imagefileservice.service.impl;
+package com.ar.imagefileservice.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import com.somika.imagefileservice.config.AwsS3Config;
-import com.somika.imagefileservice.domain.Image;
-import com.somika.imagefileservice.dto.ImageDto;
-import com.somika.imagefileservice.mapper.ImageMapper;
-import com.somika.imagefileservice.repository.ImageRepository;
-import com.somika.imagefileservice.util.DominantColorExtractor;
-import com.somika.imagefileservice.service.ImageService;
+import com.ar.imagefileservice.config.AwsS3Config;
+import com.ar.imagefileservice.domain.Image;
+import com.ar.imagefileservice.dto.ImageDto;
+import com.ar.imagefileservice.mapper.ImageMapper;
+import com.ar.imagefileservice.repository.ImageRepository;
+import com.ar.imagefileservice.util.DominantColorExtractor;
+import com.ar.imagefileservice.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
@@ -103,3 +103,4 @@ public class ImageServiceImpl implements ImageService {
         return "https://" + awsS3Config.getS3().getBucketName() + ".s3.amazonaws.com/" + key;
     }
 }
+
