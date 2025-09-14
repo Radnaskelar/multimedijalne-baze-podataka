@@ -1,4 +1,4 @@
-﻿# Image File Service Management
+﻿# Image File Service
 
 This is a web application that lets you upload images, store them, and browse a gallery with the dominant color for each image.
 
