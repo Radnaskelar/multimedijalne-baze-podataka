@@ -8,13 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/images")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
+
 public class ImageController {
 
     private final ImageServiceImpl imageService;

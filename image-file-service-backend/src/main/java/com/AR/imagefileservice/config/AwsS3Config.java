@@ -4,38 +4,34 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Getter
-@Setter
 @Configuration
-@ConfigurationProperties(prefix = "aws")
 public class AwsS3Config {
 
+    @Value("${aws.accessKeyId}")
     private String accessKeyId;
+
+    @Value("${aws.secretKey}")
     private String secretKey;
+
+    @Value("${aws.s3.region}")
     private String region;
-    private S3 s3;
+
+    @Value("${aws.s3.bucket-name}")
+    private String bucketName;
 
     @Bean
     public AmazonS3 amazonS3Client() {
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKeyId, secretKey);
-
+        BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyId, secretKey);
         return AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .withRegion(region)
+                .withCredentials(new AWSStaticCredentialsProvider(creds))
                 .build();
     }
 
-    @Getter
-    @Setter
-    public static class S3 {
-        private String bucketName;
-    }
+    public String getBucketName() { return bucketName; }
+    public String getRegion()     { return region; }
 }
-
-

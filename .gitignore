@@ -27,3 +27,4 @@ Thumbs.db
 *.env
 *.pem
 *.key
+image-file-service-backend/src/main/resources/application-local.properties

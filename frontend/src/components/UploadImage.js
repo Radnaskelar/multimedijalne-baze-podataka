@@ -1,76 +1,133 @@
 import React, { useState } from 'react';
-import { Box, Heading, Input, Button, Stack, Flex, useToast } from '@chakra-ui/react';
+import { Box, Heading, Input, Button, Flex, Text, useToast } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { FaHome } from 'react-icons/fa';
-import axios from 'axios';
+import { FaArrowLeft, FaUpload } from 'react-icons/fa';
+
+const API_BASE = 'http://localhost:8081';
 
 const UploadImage = () => {
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState(null);
   const toast = useToast();
+  const [title, setTitle] = useState('');
+  const [file, setFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleImageUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append('file', image);
-      formData.append('title', title);
+  const onFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
 
-      const response = await axios.post('http://localhost:8080/images/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!file) {
       toast({
-        title: 'Image uploaded!',
-        description: `Image uploaded successfully.`,
+        title: 'No file selected',
+        description: 'Please choose an image to upload.',
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    if (!title.trim()) {
+      toast({
+        title: 'Title required',
+        description: 'Please enter a title for your image.',
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('file', file); // backend expects "file" param
+
+      const res = await fetch(`${API_BASE}/images/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(`Upload failed (${res.status}) ${txt}`);
+      }
+
+      toast({
+        title: 'Upload successful',
+        description: 'Your image has been uploaded.',
         status: 'success',
         duration: 3000,
         isClosable: true,
       });
-    } catch (error) {
-      console.error('Error uploading image:', error);
+
+      // reset form
+      setTitle('');
+      setFile(null);
+      // optionally, navigate back to gallery or just keep on page
+      // window.location.href = '/';
+    } catch (err) {
+      console.error('Upload error:', err);
       toast({
-        title: 'Error',
-        description: 'An error occurred while uploading the image.',
+        title: 'Upload failed',
+        description: 'The server rejected the upload. Check the backend logs.',
         status: 'error',
-        duration: 3000,
+        duration: 4000,
         isClosable: true,
       });
+    } finally {
+      setIsUploading(false);
     }
   };
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-  };
-
   return (
-    <Box padding="4" boxShadow="lg" rounded="lg" bg="white" width="400px">
-      <Flex justifyContent="space-between" alignItems="center" mb="4">
-        <Heading as="h1" size="xl">
-          Upload Image
-        </Heading>
-        <Link to="/">
-          <Button colorScheme="blue" variant="ghost">
-            <FaHome />
+    <Flex direction="column" alignItems="center" bg="gray.50" minH="100vh" width="1000px" mx="auto">
+      <Box maxW="800px" width="100%" p="6" mt="6" boxShadow="md" borderRadius="md" bg="white">
+        <Flex justifyContent="space-between" alignItems="center" mb="4">
+          <Heading as="h1" size="lg">Upload Image</Heading>
+          <Link to="/">
+            <Button leftIcon={<FaArrowLeft />}>Back to Gallery</Button>
+          </Link>
+        </Flex>
+
+        <form onSubmit={handleSubmit}>
+          <Box mb="4">
+            <Text mb="2" fontWeight="semibold">Title</Text>
+            <Input
+              placeholder="Enter a title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Box>
+
+          <Box mb="6">
+            <Text mb="2" fontWeight="semibold">Image file</Text>
+            {/* Native input for file selection works best */}
+            <input type="file" accept="image/*" onChange={onFileChange} />
+            {file && (
+              <Text mt="2" fontSize="sm" color="gray.600">
+                Selected: {file.name}
+              </Text>
+            )}
+          </Box>
+
+          <Button
+            type="submit"
+            colorScheme="green"
+            leftIcon={<FaUpload />}
+            isLoading={isUploading}
+            loadingText="Uploading..."
+          >
+            Upload
           </Button>
-        </Link>
-      </Flex>
-      <Stack spacing="4" mb="4">
-        <Input type="file" onChange={handleImageChange} accept="image/*" />
-        <Input
-          type="text"
-          placeholder="Enter the title..."
-          value={title}
-          onChange={handleTitleChange}
-        />
-        <Button colorScheme="blue" onClick={handleImageUpload}>Upload</Button>
-      </Stack>
-    </Box>
+        </form>
+      </Box>
+    </Flex>
   );
 };
 
