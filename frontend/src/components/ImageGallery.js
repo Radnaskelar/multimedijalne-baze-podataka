@@ -11,7 +11,7 @@ const ImageGallery = () => {
   const getAllImages = async () => {
     try {
       if (!searchQuery) {
-        const response = await fetch('http://localhost:8080/images');
+        const response = await fetch('http://localhost:8081/images');
         const data = await response.json();
         console.log(data);
         setImages(data);
@@ -46,7 +46,7 @@ const ImageGallery = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/images/search?color=${searchQuery}`, {
+      const response = await fetch(`http://localhost:8081/images/search?color=${searchQuery}`, {
         method: 'GET',
       });
       if (response.ok) {
@@ -84,7 +84,7 @@ const ImageGallery = () => {
 
   const handleDeleteImage = async (imageId) => {
     try {
-      const response = await fetch(`http://localhost:8080/images/${imageId}`, {
+      const response = await fetch(`http://localhost:8081/images/${imageId}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -120,7 +120,7 @@ const ImageGallery = () => {
 
   const handleDownloadImage = async (imageId, imageName) => {
     try {
-      const response = await fetch(`http://localhost:8080/images/${imageId}/download`, {
+      const response = await fetch(`http://localhost:8081/images/${imageId}/download`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/octet-stream',
