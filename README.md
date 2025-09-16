@@ -19,11 +19,9 @@ This is a web application built to provide image file management functionalities
 
 ## Gallery
 
-!\[Gallery](docs/images/mmbp1.png)
-
-!\[Upload](docs/images/mmbp2.png)
-
-!\[Search](docs/images/mmbp3.png)
+![image](https://github.com/Radnaskelar/multimedijalne-baze-podataka/blob/main/docs/images/mmbp1.png)
+![image](https://github.com/Radnaskelar/multimedijalne-baze-podataka/blob/main/docs/images/mmbp2.png)
+![image](https://github.com/Radnaskelar/multimedijalne-baze-podataka/blob/main/docs/images/mmbp3.png)
 
 
 
